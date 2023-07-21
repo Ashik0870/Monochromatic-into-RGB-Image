@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>upload the file : GFG</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3e9e9;
+    }
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+h2{
+  text-align: center;
+  margin-left: 200px;
+}
+
+form {
+  text-align: center;
+  margin-top: 50px;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  width: 300px;
+}
+
+input[type="submit"] {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #4CAF50;
+  color: #FFFFFF;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+/* body{
+  background-image:url('https://image.freepik.com/free-vector/abstract-background-with-a-watercolor-texture_1048-2144.jpg'); 
+} */
+
+/* CSS for image preview */
+#img-preview {
+  margin: 20px auto;
+  justify-content: center;
+}
+
+  </style>
+</head>
+<body background="{{url_for('static', filename='bg.avif')}}">
+<nav class="navbar bg-dark">
+    <div class="container-fluid">
+      <img src="{{url_for('static', filename='aiet.png')}}"  width="50" height="70" ></img>
+<h1 style="color: white; text-align: left;">IMAGE COLORIZATION</h1>
+    </div>
+  </nav>
+  <center><h3 style="text-align: center; text-decoration-color: #4CAF50;" ><b>Welcome to photo colorizer</b></h3>  <br><br>
+  <pre>Colorize photos with AI, 
+    turning black and white pictures to color in seconds. 
+    Reimagine the past by colorizing images 
+    of ancestors and historic figures. </pre>
+  <label for="file">Choose a file: {{ message }}</label>
+
+<!-- <img src="{{url_for('static', filename='image_colorizer.jpeg')}}" width="250" height="250" /> -->
+<br><br><div id="img-preview"><label for="">Preview will appeare here</label></div></center>
+<!-- <center><img src="image_colorizer.jpeg" height="250px" width="250px" ></img> -->
+  
+   <form action = "/success" method = "post" enctype="multipart/form-data">  
+
+    
+    <input type="file" id="file" name="file" onchange="previewImage()"> 
+    <!-- Image preview container -->
+    
+    <input type="submit" value="Upload">
+  </form><center></center>
+  <script>
+    // Function to preview uploaded image
+    function previewImage() {
+      const preview = document.querySelector('#img-preview');
+      const file = document.querySelector('#file').files[0];
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        // Create image element
+        const img = document.createElement('img');
+        img.src = reader.result;
+        // Remove existing preview, if any
+        preview.innerHTML = '';
+        // Append new image element to preview container
+        preview.appendChild(img);
+      });
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+</html>
